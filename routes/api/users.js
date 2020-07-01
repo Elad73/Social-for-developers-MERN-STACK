@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator'); // The check is a middleware of validators, that comes in an array
 const User = require('../../models/User.js');
+const keys = require('../../config/keys');
 
 // @route  POST api/users
 // @desc   Register user
@@ -53,7 +55,21 @@ router.post(
 
             await user.save(); // anything that returns a promise you make sure there is an await before it.
 
-            res.send('User registered');
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            };
+
+            jwt.sign(
+                payload,
+                keys.jwtSecret,
+                { expiresIn: keys.jwtExpiration },
+                (err, token) => {
+                    if (err) throw err;
+                    res.json({ token });
+                }
+            );
         } catch (err) {
             console.error(err.message);
             res.status(500).send('Server error');

@@ -6,6 +6,9 @@ const app = express();
 // Connect Database
 connectDB();
 
+// Init Middleware
+app.use(express.json({ extended: false })); // This attaches the 'body' to the request
+
 app.get('/', (req, res) => res.send('This is my MERN stack course'));
 
 // Define routes

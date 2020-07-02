@@ -10,7 +10,7 @@ const PostSchema = new Schema({
         type: String,
         require: true
     },
-    name: {
+    author: {
         type: String
     },
     avatar: {

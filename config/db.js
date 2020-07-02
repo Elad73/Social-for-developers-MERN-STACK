@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const config = require('config');
 const keys = require('../config/keys');
 
 const dbConStr = keys.mongodbConStr;
@@ -9,7 +8,8 @@ const connectDB = async () => {
         await mongoose.connect(dbConStr, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            useCreateIndex: true
+            useCreateIndex: true,
+            useFindAndModify: false
         });
 
         console.log('MongoDB Connectd...');

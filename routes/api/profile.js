@@ -209,7 +209,7 @@ router.put(
 
         try {
             const profile = await Profile.findOne({ user: req.user.id });
-            profile.experience.unshift(newExp); //pusshing at the beginning
+            profile.experience.unshift(newExp); //pushing at the beginning
 
             await profile.save();
             res.json(profile);

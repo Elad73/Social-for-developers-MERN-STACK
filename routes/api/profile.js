@@ -18,7 +18,7 @@ router.get('/me', auth, async (req, res) => {
 
         if (!profile) {
             return res
-                .status(400)
+                .status(404)
                 .json({ msg: 'There is no profile for this user ' });
         }
 
@@ -136,13 +136,13 @@ router.get('/user/:user_id', async (req, res) => {
             user: req.params.user_id
         }).populate('user', ['name', 'avatar']);
 
-        if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+        if (!profile) return res.status(404).json({ msg: 'Profile not found' });
 
         res.json(profile);
     } catch (error) {
         console.error(error.message);
         if (error.kind === 'ObjectId') {
-            return res.status(400).json({ msg: 'Profile not found' });
+            return res.status(404).json({ msg: 'Profile not found' });
         }
         res.status(500).send('Server Error');
     }
@@ -233,7 +233,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
             .indexOf(req.params.exp_id);
 
         if (removeIndex < 0) {
-            return res.status(400).json({ msg: 'Experience not found' });
+            return res.status(404).json({ msg: 'Experience not found' });
         }
         profile.experience.splice(removeIndex, 1);
         await profile.save();
@@ -312,7 +312,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
             .indexOf(req.params.edu_id);
 
         if (removeIndex < 0) {
-            return res.status(400).json({ msg: 'Education not found' });
+            return res.status(404).json({ msg: 'Education not found' });
         }
         profile.education.splice(removeIndex, 1);
         await profile.save();

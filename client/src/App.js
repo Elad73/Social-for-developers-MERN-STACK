@@ -14,7 +14,7 @@ const App = () => (
             <section className='container'>
                 <Switch>
                     <Route exact path='/register' component={Register} />
-                    <Route exact path='/Login' component={Login} />
+                    <Route exact path='/login' component={Login} />
                 </Switch>
             </section>
         </Fragment>

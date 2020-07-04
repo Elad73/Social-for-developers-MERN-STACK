@@ -18,8 +18,6 @@ const Register = ({ setAlert, register }) => {
     // Extracting the variables from the state (formData)
     const { name, email, password, password2 } = formData;
 
-    console.log('formdata: ', name, email, password);
-
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 

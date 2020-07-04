@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'; // Whenever we user connect we have to export it
 import PropTypes from 'prop-types';
 import { setAlert } from '../../actions/alert'; // Whenever we bring an action we need to passit in to connect
+import { register } from '../../actions/auth';
 
-// Extracting setAlert from props
-const Register = ({ setAlert }) => {
+// Extracting setAlert and register actions from props
+const Register = ({ setAlert, register }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -17,6 +18,8 @@ const Register = ({ setAlert }) => {
     // Extracting the variables from the state (formData)
     const { name, email, password, password2 } = formData;
 
+    console.log('formdata: ', name, email, password);
+
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -25,7 +28,9 @@ const Register = ({ setAlert }) => {
         if (password !== password2) {
             setAlert('Passwords do not match', 'danger');
         } else {
-            console.log('SUCCESS');
+            register({ name, email, password });
+
+            // // This is a short test for calling to user with post, sending data and getting a response
             // const newUser = {
             //     name,
             //     email,
@@ -111,7 +116,8 @@ const Register = ({ setAlert }) => {
 };
 
 Register.prototype = {
-    setAlert: PropTypes.func.isRequired
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired
 };
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);

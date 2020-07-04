@@ -5,5 +5,6 @@ module.exports = {
     jwtSecret: process.env.JWT_SECRET,
     jwtExpiration: process.env.JWT_EXPIRATION,
     githubClientID: process.env.GITHUB_CLIENT_ID,
-    githubSecert: process.env.GITHUB_SECRET
+    githubSecert: process.env.GITHUB_SECRET,
+    validationErrorDefaultTimeout: process.env.VALIDATION_DEF_ERROR_TIMEOUT
 };

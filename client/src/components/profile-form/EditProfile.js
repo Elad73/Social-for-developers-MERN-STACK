@@ -1,10 +1,15 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile } from '../../actions/profile';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
-const CreateProfile = ({ createProfile, history }) => {
+const EditProfile = ({
+    profile: { profile, loading },
+    createProfile,
+    getCurrentProfile,
+    history
+}) => {
     // Declare formData as a 'state variable', and initialize it with the emtpy fiedls
     const [formData, setFormData] = useState({
         company: '',
@@ -22,6 +27,29 @@ const CreateProfile = ({ createProfile, history }) => {
     });
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+    useEffect(() => {
+        getCurrentProfile();
+
+        setFormData({
+            company: loading || !profile.company ? '' : profile.company,
+            website: loading || !profile.website ? '' : profile.website,
+            location: loading || !profile.location ? '' : profile.location,
+            status: loading || !profile.status ? '' : profile.status,
+            skills: loading || !profile.skills ? '' : profile.skills.join(','),
+            githubusername:
+                loading || !profile.githubusername
+                    ? ''
+                    : profile.githubusername,
+            bio: loading || !profile.bio ? '' : profile.bio,
+            twitter: loading || !profile.social ? '' : profile.social.twitter,
+            facebook: loading || !profile.social ? '' : profile.social.facebook,
+            linkedin: loading || !profile.social ? '' : profile.social.linkedin,
+            youtube: loading || !profile.social ? '' : profile.social.youtube,
+            instagram:
+                loading || !profile.social ? '' : profile.social.instagram
+        });
+    }, [loading, getCurrentProfile]);
 
     const {
         company,
@@ -43,12 +71,12 @@ const CreateProfile = ({ createProfile, history }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        createProfile(formData, history);
+        createProfile(formData, history, true); // The true parameter is passing for edit flag
     };
 
     return (
         <Fragment>
-            <h1 className='large text-primary'>Create Your Profile</h1>
+            <h1 className='large text-primary'>Edit Your Profile</h1>
             <p className='lead'>
                 <i className='fas fa-user'></i> Let's get some information to
                 make your profile stand out
@@ -149,7 +177,7 @@ const CreateProfile = ({ createProfile, history }) => {
                     <textarea
                         placeholder='A short bio of yourself'
                         name='bio'
-                        valie={bio}
+                        value={bio}
                         onChange={(e) => onChange(e)}
                     ></textarea>
                     <small className='form-text'>
@@ -236,9 +264,17 @@ const CreateProfile = ({ createProfile, history }) => {
     );
 };
 
-CreateProfile.propTypes = {
-    createProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+    createProfile: PropTypes.func.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired
 };
 
+const mapStateToProps = (state) => ({
+    profile: state.profile
+});
+
 // We wrapp the CreateProfile with 'withRouter' so we could use the history
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+    withRouter(EditProfile)
+);

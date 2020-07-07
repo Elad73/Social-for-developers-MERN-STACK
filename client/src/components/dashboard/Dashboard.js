@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import DashboardActions from './DashboardActions';
 import { getCurrentProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
+import Experience from './Experience';
+import Education from './Education';
 
 // Since we want each time the Dashboard loads to get the profile, we are using the useEffect hook.
 // Since we want it to load only once, we are passing the empty array as the second parameter to the 'useEffect' function.
@@ -27,6 +29,8 @@ const Dashboard = ({
             {profile !== null ? (
                 <Fragment>
                     <DashboardActions />
+                    <Experience experience={profile.experience} />
+                    <Education education={profile.education} />
                 </Fragment>
             ) : (
                 <Fragment>

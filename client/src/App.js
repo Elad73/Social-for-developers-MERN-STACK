@@ -9,6 +9,8 @@ import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
+import AddExperience from './components/profile-form/AddExperienc';
+import AddEducation from './components/profile-form/AddEducation';
 // Redux
 import { Provider } from 'react-redux'; // Provider connects between the react and redux
 import store from './store';
@@ -57,6 +59,16 @@ const App = () => {
                                 exact
                                 path='/edit-profile'
                                 component={EditProfile}
+                            />
+                            <PrivateRoute
+                                exact
+                                path='/add-experience'
+                                component={AddExperience}
+                            />
+                            <PrivateRoute
+                                exact
+                                path='/add-education'
+                                component={AddEducation}
                             />
                         </Switch>
                     </section>

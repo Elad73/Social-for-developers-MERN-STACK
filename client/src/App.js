@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/profile-form/CreateProfile';
+import Profiles from './components/profiles/Profiles';
 import EditProfile from './components/profile-form/EditProfile';
 import AddExperience from './components/profile-form/AddExperienc';
 import AddEducation from './components/profile-form/AddEducation';
@@ -45,6 +46,11 @@ const App = () => {
                                 component={Register}
                             />
                             <Route exact path='/login' component={Login} />
+                            <Route
+                                exact
+                                path='/profiles'
+                                component={Profiles}
+                            />
                             <PrivateRoute
                                 exact
                                 path='/dashboard'

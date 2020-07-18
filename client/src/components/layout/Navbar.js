@@ -17,7 +17,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                 </Link>
             </li>
             <li>
-                <a onClick={logout} href='#!'>
+                <a onClick={logout} href='/'>
                     <i className='fas fa-sign-out-alt' />{' '}
                     <span className='hide-sm'>Logout</span>
                 </a>
@@ -43,7 +43,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <nav className='navbar bg-dark'>
             <h1>
                 <Link to='/'>
-                    <i className='fab fa-earlybirds'></i> MyFamily
+                    <i className='fab fa-earlybirds'></i> DevConnector
                 </Link>
             </h1>
             {!loading && (

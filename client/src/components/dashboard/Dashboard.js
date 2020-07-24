@@ -27,6 +27,12 @@ const Dashboard = ({
             <p className='lead'>
                 <i className='fas fa-user'></i> Welcome {user && user.name}
             </p>
+            {/* <p>
+                <Link to={`/profile/${user._id}`} className='btn btn-light'>
+                    <i className='fas fa-user-circle text-primary'></i> View
+                    Profile
+                </Link>
+            </p> */}
             {profile !== null ? (
                 <Fragment>
                     <DashboardActions />
